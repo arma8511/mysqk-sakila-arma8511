@@ -1,9 +1,9 @@
 insert into sakila_dwh.fact_rental(
-        rental_id,
-        date_key,
-        store_key,
-        customer_key,
-        count_rental
+    rental_id,
+    date_key,
+    store_key,
+    customer_key,
+    count_rental
 )
 with datos as (
     select
@@ -14,18 +14,19 @@ with datos as (
         customer_key,
         store_id,
         store_key
-    from
+    from 
         sakila.rental
-        join sakila_dwh.dim_customer using(customer_id) -- estamos haciendo una union entre tablas por customer
-        join sakila.staff using(staff_id)
-        join sakila_dwh.dim_store using(store_id)
+        join sakila_dwh.dim_customer using (customer_id)
+        join sakila.staff using (staff_id)
+        join sakila_dwh.dim_store using (store_id)
+       
 )
-
-select 
+select
     rental_id,
     date_key,
     store_key,
     customer_key,
     1 as count_rental
+
 from datos
-limit 3;
+;
